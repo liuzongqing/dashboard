@@ -10,6 +10,9 @@
                     <span class="glyphicon glyphicon-plus"></span>
                     新建
                 </a>
+                <button class="btn btn-info btn-xs" onclick="export_variables();">
+                    <span class="glyphicon glyphicon-download"></span>导出
+                </button>
             </div>
         </div>
         <div class="panel-body" style="padding-left: 8px;">
@@ -67,5 +70,22 @@
         </button>
     </div>
 
-
+<script>
+    // 下载文件方法
+    var export_variables = function() {
+        var content = '{{ variables|tojson }}';
+        var file_name = '{{ group.grp_name }}' + "_variables.json";
+    	var eleLink = document.createElement('a');
+    	eleLink.download = file_name;
+    	eleLink.style.display = 'none';
+    	// 字符内容转变成blob地址
+    	var blob = new Blob([content]);
+    	eleLink.href = URL.createObjectURL(blob);
+    	// 触发点击
+    	document.body.appendChild(eleLink);
+    	eleLink.click();
+    	// 然后移除
+    	document.body.removeChild(eleLink);
+    };
+</script>
 {% endblock %}

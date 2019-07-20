@@ -38,7 +38,8 @@ def chart():
             "graph_type": graph_type,
         },
     }
-    if id_: ret['ok'] = True
+    if id_:
+        ret['ok'] = True
 
     return json.dumps(ret)
 
