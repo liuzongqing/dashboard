@@ -21,7 +21,12 @@ def variable_list_get(group_id):
         return jsonify(msg='no such group %s' % group_id)
 
     variables = Variable.select_vs(where='grp_id = %s', params=[group_id])
-    return render_template('portal/variable/list.html', group=group, variables=variables)
+
+    new_vars = []
+    for v in variables:
+        new_vars.append({"name": v.name, "content": v.content, "note": v.note, "create_user": v.create_user})
+
+    return render_template('portal/variable/list.html', group=group, variables=new_vars)
 
 
 @app.route('/portal/group/<group_id>/variable/creator', methods=['GET'])
